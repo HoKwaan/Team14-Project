@@ -32,4 +32,4 @@ Quich (quiz each other)
 - 이연우: 문제풀이 파트 구현
 
 ## 프로젝트 실행에 필요한 기술 목록 
-HTML/CSS, JavaScript, Node.js, GitHub Pages, Firebase
+HTML/CSS, JavaScript, Node.js, GitHub Pages
