@@ -207,6 +207,11 @@
             resultDiv.style.color = "green";
             document.querySelector('.current-problem').appendChild(resultDiv);
 
+            // 제출 버튼 비활성화
+            document.querySelector('.submit-btn').disabled = true;
+           // 텍스트 입력 필드 초기화
+           document.querySelector('textarea').value = "";
+
             // 서버에 데이터를 전송하거나 로직 추가
             console.log("usercode:", userCode);
     }
