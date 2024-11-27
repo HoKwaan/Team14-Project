@@ -84,7 +84,7 @@
             resize: none;
             font-family: monospace;
         }
-        .submit-btn {
+        .submit-btn, .hint-btn {
             margin-top: 10px;
             padding: 10px 20px;
             background-color: #007bff;
@@ -112,6 +112,21 @@
         }
         .ranking-item:last-child {
             border-bottom: none;
+        }
+        /* Hint Button Click */
+        .hint-btn:hover {
+            background-color: #0056b3; 
+        }
+        /* Click Unavailable */
+        .submit-btn:disabled {
+            background-color: #cccccc; 
+            cursor: not-allowed; 
+        }
+
+       /* Hint Button Active */
+       .hint-btn.hint-active {
+            background-color: #0056b3; 
+            color: #ffffff; 
         }
     </style>
 </head>
@@ -178,5 +193,23 @@
             <span>점수: 80</span>
         </div>
     </div>
+    <script>
+        document.querySelector('.submit-btn').addEventListener('click', function () {
+        const userCode = document.querySelector('textarea').value;
+        if (userCode.trim() === "") {
+            alert("코드를 작성해주세요!");
+        } 
+        else {
+            // 제출 후 UI 피드백 메시지
+            const resultDiv = document.createElement('div');
+            resultDiv.textContent = "코드가 성공적으로 제출되었습니다!";
+            alert("작성하신 코드가 성공적으로 제출되었습니다!");
+            resultDiv.style.color = "green";
+            document.querySelector('.current-problem').appendChild(resultDiv);
+
+            // 서버에 데이터를 전송하거나 로직 추가
+            console.log("usercode:", userCode);
+    }
+});
 </body>
 </html>
