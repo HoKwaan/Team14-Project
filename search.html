@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <script src="https://kit.fontawesome.com/cf112bfab0.js" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>문제 풀이 웹 앱</title>
@@ -38,61 +39,41 @@
             color: #fff;
         }
         /* Main Content */
-        .main-content {
-            flex: 1;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #ddd;
-        }
-        .current-problem {
-            flex: 1;
-            margin-top: 20px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            background-color: #fff;
-            border-radius: 5px;
-        }
-        .problem-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .problem-header .status {
-            color: #888;
-            font-size: 0.9em;
-        }
-        .problem-description {
-            margin-top: 10px;
-            font-size: 1.1em;
-        }
-        .code-editor {
-            margin-top: 20px;
-            background-color: #eee;
+       .search-box {
+            height: 60px;
+            width: 700px;
+            background: #fff;
+            border-radius: 40px;
             padding: 10px;
-            border-radius: 5px;
-        }
-        .code-editor textarea {
-            width: 100%;
-            height: 200px;
-            resize: none;
-            font-family: monospace;
-        }
-        .submit-btn {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
+            border: 1px solid #ddd;
+       }
+       .search-txt {
             border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+            background: none;
+            outline: none;
+            float: left;
+            padding: 0px;
+            color: black;
+            font-size: 16px;
+            line-height: 30px;
+            width: 300px
+       }
+       .main-content{
+        margin: 0 auto;
+       }
+       .search-btn{
+            color:#ddd;
+            float: right;
+            width: 40px;
+            height: 100%;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+       }
         /* Ranking Panel */
         .ranking {
             margin-left: 20px;
@@ -119,7 +100,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <h2>문제 풀이 앱 Quich</h2>
-        <a href="#quich.html">현재 문제</a>
+        <a href="quich.html">현재 문제</a>
         <a href="#ranking">유저 랭킹</a>
         <a href="#problem">문제 출제</a>
         <a href="search.html">문제 검색</a>
@@ -127,31 +108,12 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <!-- Header -->
-        <div class="header">
-            <h1>문제 풀이 웹 앱 Quich</h1>
-            <div class="user-profile">
-                <span>알림</span> | <span>프로필</span>
-            </div>
-        </div>
-
-        <!-- Current Problem Display -->
-        <div class="current-problem" id="problem">
-            <div class="problem-header">
-                <h2>문제 1</h2>
-                <span class="status">1/5</span>
-            </div>
-            <div class="problem-description">
-                <p>문제 문제 문제 문제</p>
-            </div>
-        </div>
-
-        <!-- Code Editor -->
-        <div class="code-editor">
-            <h2>문제 풀이</h2>
-            <textarea placeholder="여기에 코드를 작성하세요..."></textarea>
-            <button class="submit-btn">제출</button>
-        </div>
+       <form class="search-box" action="" method="get">
+            <input class="search-txt" type="text" name="" placeholder="검색할 문제 번호를 입력하세요.">
+            <button class="search-btn" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+       </form>
     </div>
 
     <!-- Ranking Panel -->
