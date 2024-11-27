@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar Menu</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #b4def8;
+            /* 하늘색 배경 */
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar Style */
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translateX(-250px);
+            /* 숨김 상태 */
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            color: white;
+            padding-top: 20px;
+        }
+
+        .sidebar.open {
+            transform: translateX(0);
+            /* 보임 상태 */
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px 20px;
+            border-bottom: 1px solid #444;
+            cursor: pointer;
+        }
+
+        .sidebar ul li:hover {
+            background-color: #575757;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+        }
+
+        /* Menu Button Style */
+        .menu-button {
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #333;
+            margin: 10px;
+            position: absolute;
+            z-index: 2000;
+        }
+
+        .menu-button:focus {
+            outline: none;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 60px;
+            /* 메뉴 버튼 여백 */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Menu Button -->
+    <button class="menu-button" onclick="toggleSidebar()">☰</button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li><a href="#profile">개인정보 관리</a></li>
+            <li><a href="#question-create">문제출제</a></li>
+            <li><a href="#question-solve">문제풀이</a></li>
+            <li><a href="#question-search">문제검색</a></li>
+            <li><a href="#user-ranking">유저랭킹</a></li>
+        </ul>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+    </script>
+</body>
+
+</html>
