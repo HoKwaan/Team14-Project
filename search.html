@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script src="https://kit.fontawesome.com/cf112bfab0.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문제 풀이 웹 앱</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+        /* Sidebar */
+        .sidebar {
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar h2 {
+            margin-bottom: 20px;
+        }
+        .sidebar a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 10px 0;
+            display: block;
+        }
+        .sidebar a:hover {
+            color: #fff;
+        }
+        /* Main Content */
+       .search-box {
+            height: 60px;
+            width: 700px;
+            background: #fff;
+            border-radius: 40px;
+            padding: 10px;
+            border: 1px solid #ddd;
+       }
+       .search-txt {
+            border: none;
+            background: none;
+            outline: none;
+            float: left;
+            padding: 0px;
+            color: black;
+            font-size: 16px;
+            line-height: 30px;
+            width: 300px
+       }
+       .main-content{
+        margin: 0 auto;
+       }
+       .search-btn{
+            color:#ddd;
+            float: right;
+            width: 40px;
+            height: 100%;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+       }
+        /* Ranking Panel */
+        .ranking {
+            margin-left: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .ranking h2 {
+            margin-bottom: 10px;
+        }
+        .ranking-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .ranking-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>문제 풀이 앱 Quich</h2>
+        <a href="quich.html">현재 문제</a>
+        <a href="#ranking">유저 랭킹</a>
+        <a href="#problem">문제 출제</a>
+        <a href="search.html">문제 검색</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+       <form class="search-box" action="" method="get">
+            <input class="search-txt" type="text" name="" placeholder="검색할 문제 번호를 입력하세요.">
+            <button class="search-btn" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+       </form>
+    </div>
+
+    <!-- Ranking Panel -->
+    <div class="ranking" id="ranking">
+        <h2>유저 랭킹</h2>
+        <div class="ranking-item">
+            <span>1. 유저A</span>
+            <span>점수: 100</span>
+        </div>
+        <div class="ranking-item">
+            <span>2. 유저B</span>
+            <span>점수: 95</span>
+        </div>
+        <div class="ranking-item">
+            <span>3. 유저C</span>
+            <span>점수: 90</span>
+        </div>
+        <div class="ranking-item">
+            <span>4. 유저D</span>
+            <span>점수: 85</span>
+        </div>
+        <div class="ranking-item">
+            <span>5. 유저E</span>
+            <span>점수: 80</span>
+        </div>
+    </div>
+</body>
+</html>
