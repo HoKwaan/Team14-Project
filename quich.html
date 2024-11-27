@@ -216,5 +216,35 @@
             console.log("usercode:", userCode);
     }
 });
+    // 힌트 버튼 생성
+    const hintButton = document.createElement('button');
+    hintButton.textContent = "힌트 보기";
+    hintButton.className = "hint-btn";
+    document.querySelector('.current-problem').appendChild(hintButton);
+
+    // 힌트를 담을 div 생성 (초기에는 숨김 상태)
+    const hintDiv = document.createElement('div');
+    hintDiv.textContent = "힌트: 문제를 주의 깊게 읽고 접근하세요!";
+    hintDiv.style.color = "blue";
+    hintDiv.style.marginTop = "10px";
+    hintDiv.style.display = "none"; // 처음에는 숨겨진 상태
+    document.querySelector('.current-problem').appendChild(hintDiv);
+
+    // 힌트 버튼 클릭 이벤트 처리
+    hintButton.addEventListener('click', function () {
+    if (hintDiv.style.display === "none") {
+        // 힌트를 보이게 설정
+        hintDiv.style.display = "block";
+        hintButton.textContent = "힌트 숨기기"; // 버튼 텍스트 변경
+        hintButton.classList.add("hint-active");// 활성화 클래스 추가
+    } 
+    else {
+        // 힌트를 숨기게 설정
+        hintDiv.style.display = "none";
+        hintButton.textContent = "힌트 보기"; // 버튼 텍스트 변경
+        hintButton.classList.remove("hint-active"); // 활성화 클래스 제거
+    }
+});
+    </script>
 </body>
 </html>
