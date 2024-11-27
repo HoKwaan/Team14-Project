@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문제 풀이 및 출제</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #ccc;
+            text-decoration: none;
+            margin: 10px 0;
+        }
+
+        .sidebar a:hover {
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        textarea,
+        input {
+            width: 100%;
+            font-size: 1em;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>문제 풀이 앱</h2>
+        <a href="#" id="link-problem-solving">문제 풀이</a>
+        <a href="#" id="link-create-problem">문제 출제</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">문제 풀이 및 출제</div>
+        <div class="container" id="problem-solving-container">
+            <h2 id="problem-title">문제 1</h2>
+            <p class="problem-description" id="problem-description"></p>
+            <textarea id="answer-input" placeholder="답안을 입력하세요..."></textarea>
+            <button id="submit-answer-btn">제출</button>
+        </div>
+        <div class="container" id="create-problem-container" style="display: none;">
+            <h2>문제 출제</h2>
+            <input type="text" id="new-problem-description" placeholder="문제 설명을 입력하세요.">
+            <input type="text" id="new-problem-answer" placeholder="정답을 입력하세요.">
+            <button id="add-problem-btn">문제 추가</button>
+        </div>
+    </div>
+
+    <script>
+        // 로컬스토리지에서 문제 가져오기
+        function getProblemsFromLocalStorage() {
+            const storedProblems = localStorage.getItem("problems");
+            return storedProblems ? JSON.parse(storedProblems) : [];
+        }
+
+        // 로컬스토리지에 문제 저장
+        function saveProblemsToLocalStorage(problems) {
+            localStorage.setItem("problems", JSON.stringify(problems));
+        }
+
+        // 문제 초기화
+        let problems = getProblemsFromLocalStorage();
+        if (problems.length === 0) {
+            problems = [
+                { id: 1, description: "두 수의 합을 구하세요. (예: 40 + 2)", answer: "42" },
+                { id: 2, description: "배열의 최대값을 구하세요. (예: [1, 2, 99])", answer: "99" }
+            ];
+            saveProblemsToLocalStorage(problems);
+        }
+        let currentProblemIndex = 0;
+        let userAnswers = [];
+
+        // HTML 요소 참조
+        const problemSolvingContainer = document.getElementById("problem-solving-container");
+        const createProblemContainer = document.getElementById("create-problem-container");
+        const problemTitle = document.getElementById("problem-title");
+        const problemDescription = document.getElementById("problem-description");
+        const answerInput = document.getElementById("answer-input");
+        const addProblemBtn = document.getElementById("add-problem-btn");
+        const newProblemDescription = document.getElementById("new-problem-description");
+        const newProblemAnswer = document.getElementById("new-problem-answer");
+
+        // 문제 풀이 기능
+        function loadProblem() {
+            if (currentProblemIndex < problems.length) {
+                const problem = problems[currentProblemIndex];
+                problemTitle.textContent = `문제 ${problem.id}`;
+                problemDescription.textContent = problem.description;
+                answerInput.style.display = "block";
+                answerInput.value = "";
+            } else {
+                showFinalResult();
+            }
+        }
+
+        function submitAnswer() {
+            const userAnswer = answerInput.value.trim();
+            const problem = problems[currentProblemIndex];
+            const isCorrect = userAnswer === problem.answer;
+            userAnswers.push(isCorrect);
+            currentProblemIndex++;
+            loadProblem();
+        }
+
+        function showFinalResult() {
+            const correctCount = userAnswers.filter(answer => answer).length;
+            problemTitle.textContent = "문제를 모두 풀었습니다!";
+            problemDescription.textContent = `총 ${problems.length}문제 중 ${correctCount}문제를 맞췄습니다.`;
+            answerInput.style.display = "none"; // 답안 입력란 숨기기
+        }
+
+        // 문제 출제 기능
+        function addProblem() {
+            const description = newProblemDescription.value.trim();
+            const answer = newProblemAnswer.value.trim();
+
+            if (description && answer) {
+                const newProblem = { id: problems.length + 1, description, answer };
+                problems.push(newProblem);
+                saveProblemsToLocalStorage(problems); // 로컬스토리지에 저장
+                newProblemDescription.value = "";
+                newProblemAnswer.value = "";
+                alert("문제가 성공적으로 추가되었습니다!");
+            } else {
+                alert("문제 설명과 정답을 입력하세요.");
+            }
+        }
+
+        // 문제 풀이 초기화
+        function resetProblemSolving() {
+            currentProblemIndex = 0;
+            userAnswers = [];
+            loadProblem();
+        }
+
+        // 화면 전환
+        document.getElementById("link-problem-solving").addEventListener("click", () => {
+            createProblemContainer.style.display = "none";
+            problemSolvingContainer.style.display = "block";
+            resetProblemSolving(); // 문제 풀이 초기화
+        });
+
+        document.getElementById("link-create-problem").addEventListener("click", () => {
+            problemSolvingContainer.style.display = "none";
+            createProblemContainer.style.display = "block";
+        });
+
+        // 이벤트 리스너 등록
+        document.getElementById("submit-answer-btn").addEventListener("click", submitAnswer);
+        addProblemBtn.addEventListener("click", addProblem);
+
+        // 초기 문제 로드
+        resetProblemSolving();
+    </script>
+</body>
+
+</html>
