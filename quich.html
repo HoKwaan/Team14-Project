@@ -144,6 +144,7 @@
         const addProblemBtn = document.getElementById("add-problem-btn");
         const newProblemDescription = document.getElementById("new-problem-description");
         const newProblemAnswer = document.getElementById("new-problem-answer");
+        const submitAnswerBtn = document.getElementById("submit-answer-btn");
 
         // 문제 풀이 기능
         function loadProblem() {
@@ -152,6 +153,7 @@
                 problemTitle.textContent = `문제 ${problem.id}`;
                 problemDescription.textContent = problem.description;
                 answerInput.style.display = "block";
+                submitAnswerBtn.textContent = "제출";
                 answerInput.value = "";
             } else {
                 showFinalResult();
@@ -159,12 +161,16 @@
         }
 
         function submitAnswer() {
-            const userAnswer = answerInput.value.trim();
-            const problem = problems[currentProblemIndex];
-            const isCorrect = userAnswer === problem.answer;
-            userAnswers.push(isCorrect);
-            currentProblemIndex++;
-            loadProblem();
+            if (currentProblemIndex < problems.length) {
+                const userAnswer = answerInput.value.trim();
+                const problem = problems[currentProblemIndex];
+                const isCorrect = userAnswer === problem.answer;
+                userAnswers.push(isCorrect);
+                currentProblemIndex++;
+                loadProblem();
+            } else {
+                resetProblemSolving(); // 마지막 문제 이후에는 문제 초기화
+            }
         }
 
         function showFinalResult() {
@@ -172,6 +178,14 @@
             problemTitle.textContent = "문제를 모두 풀었습니다!";
             problemDescription.textContent = `총 ${problems.length}문제 중 ${correctCount}문제를 맞췄습니다.`;
             answerInput.style.display = "none"; // 답안 입력란 숨기기
+            submitAnswerBtn.textContent = "다시 시작하기";
+        }
+
+        // 문제 풀이 초기화
+        function resetProblemSolving() {
+            currentProblemIndex = 0;
+            userAnswers = [];
+            loadProblem();
         }
 
         // 문제 출제 기능
@@ -191,13 +205,6 @@
             }
         }
 
-        // 문제 풀이 초기화
-        function resetProblemSolving() {
-            currentProblemIndex = 0;
-            userAnswers = [];
-            loadProblem();
-        }
-
         // 화면 전환
         document.getElementById("link-problem-solving").addEventListener("click", () => {
             createProblemContainer.style.display = "none";
@@ -211,12 +218,13 @@
         });
 
         // 이벤트 리스너 등록
-        document.getElementById("submit-answer-btn").addEventListener("click", submitAnswer);
+        submitAnswerBtn.addEventListener("click", submitAnswer);
         addProblemBtn.addEventListener("click", addProblem);
 
         // 초기 문제 로드
         resetProblemSolving();
     </script>
+
 </body>
 
 </html>
