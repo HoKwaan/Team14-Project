@@ -188,6 +188,14 @@
             loadProblem();
         }
 
+        // Enter 키로 제출 가능하게 설정
+        answerInput.addEventListener("keypress", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Enter 키의 기본 동작 방지 (줄바꿈 방지)
+                submitAnswer();
+            }
+        });
+
         // 문제 출제 기능
         function addProblem() {
             const description = newProblemDescription.value.trim();
@@ -224,6 +232,7 @@
         // 초기 문제 로드
         resetProblemSolving();
     </script>
+
 
 </body>
 
