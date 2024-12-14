@@ -123,6 +123,18 @@
             localStorage.setItem("problems", JSON.stringify(problems));
         }
 
+         // 문제 풀이 기록 저장
+        function saveProblemData(username, isCorrect) {
+            const problemsData = getProblemsData();
+            problemsData.push({ username, isCorrect });
+            localStorage.setItem("problemsData", JSON.stringify(problemsData));
+        }
+
+        function getProblemsData() {
+            const problemsData = localStorage.getItem("problemsData");
+            return problemsData ? JSON.parse(problemsData) : [];
+        }
+
         // 문제 초기화
         let problems = getProblemsFromLocalStorage();
         if (problems.length === 0) {
