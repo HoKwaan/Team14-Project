@@ -177,6 +177,14 @@
                 const userAnswer = answerInput.value.trim();
                 const problem = problems[currentProblemIndex];
                 const isCorrect = userAnswer === problem.answer;
+
+                // 현재 로그인한 유저 가져오기
+                const currentUser = localStorage.getItem("currentUser");
+                if (currentUser) {
+                    // 문제 풀이 기록 저장
+                    saveProblemData(currentUser, isCorrect);
+                }
+                
                 userAnswers.push(isCorrect);
                 currentProblemIndex++;
                 loadProblem();
