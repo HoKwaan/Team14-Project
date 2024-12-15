@@ -27,6 +27,19 @@ function calculateUserRankings() {
     }));
     rankingArray.sort((a, b) => b.score - a.score); // 점수 내림차순 정렬
 
+    // 순위 계산
+    let currentRank = 1;
+    rankingArray.forEach((user, index) => {
+        if (index > 0 && user.score === rankingArray[index - 1].score) {
+            // 동점자 처리: 이전 사용자와 점수가 같으면 같은 순위
+            user.rank = rankingArray[index - 1].rank;
+        } else {
+            // 점수가 다르면 새로운 순위 부여
+            user.rank = currentRank;
+        }
+        currentRank++;
+    });
+
     return rankingArray;
 }
 
@@ -38,11 +51,11 @@ function displayRanking() {
     // 테이블 초기화
     rankingTable.innerHTML = "";
 
-    rankings.forEach((user, index) => {
+    rankings.forEach(user => {
         const row = document.createElement("tr");
 
         const rankCell = document.createElement("td");
-        rankCell.textContent = index + 1;
+        rankCell.textContent = user.rank; // 동점자 처리된 순위 표시
 
         const usernameCell = document.createElement("td");
         usernameCell.textContent = user.username;
