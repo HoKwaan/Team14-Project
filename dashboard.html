@@ -23,17 +23,10 @@
             position: fixed;
             top: 0;
             left: 0;
-            transform: translateX(-250px);
-            /* 숨김 상태 */
-            transition: transform 0.3s ease;
+            /* 항상 보임 상태 */
             z-index: 1000;
             color: white;
             padding-top: 20px;
-        }
-
-        .sidebar.open {
-            transform: translateX(0);
-            /* 보임 상태 */
         }
 
         .sidebar ul {
@@ -60,52 +53,37 @@
 
         /* Menu Button Style */
         .menu-button {
-            font-size: 24px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: #333;
-            margin: 10px;
-            position: absolute;
-            z-index: 2000;
-        }
-
-        .menu-button:focus {
-            outline: none;
+            display: none;
+            /* 버튼 숨김 */
         }
 
         /* Main Content */
         .main-content {
             flex: 1;
             padding: 20px;
-            margin-left: 60px;
-            /* 메뉴 버튼 여백 */
+            margin-left: 250px;
+            /* Sidebar 여백 */
         }
     </style>
 </head>
 
 <body>
-    <!-- Menu Button -->
-    <button class="menu-button" onclick="toggleSidebar()">☰</button>
-
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <ul>
             <li><a href="#profile">개인정보 관리</a></li>
             <li><a href="#question-create">문제출제</a></li>
-            <li><a href="#question-solve">문제풀이</a></li>
-            <li><a href="#question-search">문제검색</a></li>
-            <li><a href="#user-ranking">유저랭킹</a></li>
+            <li><a href="./quich.html">문제풀이</a></li>
+            <li><a href="./search.html">문제검색</a></li>
+            <li><a href="./ranking.html">유저랭킹</a></li>
         </ul>
     </div>
 
-    <!-- JavaScript -->
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('open');
-        }
-    </script>
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>메인 콘텐츠</h1>
+        <p>사이드바는 항상 보입니다.</p>
+    </div>
 </body>
 
 </html>
