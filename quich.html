@@ -136,11 +136,20 @@
         }
 
          // 문제 풀이 기록 저장
-        function saveProblemData(username, isCorrect) {
-            const problemsData = getProblemsData();
-            problemsData.push({ username, isCorrect });
-            localStorage.setItem("problemsData", JSON.stringify(problemsData));
+         // 유저의 기존 점수를 삭제하고 새로운 점수 저장
+        function saveProblemData(username, correctCount) {
+            let problemsData = getProblemsData();
+
+            // 해당 유저의 기존 기록 삭제
+            problemsData = problemsData.filter(entry => entry.username !== username);
+
+            // 새로운 점수 기록 (문제 개수만큼 저장)
+            for (let i = 0; i < correctCount; i++) {
+            problemsData.push({ username, isCorrect: true });
         }
+
+        localStorage.setItem("problemsData", JSON.stringify(problemsData));
+    }
 
         function getProblemsData() {
             const problemsData = localStorage.getItem("problemsData");
@@ -228,12 +237,21 @@
         }
 
         function showFinalResult() {
-            const correctCount = userAnswers.filter(answer => answer).length;
-            problemTitle.textContent = "문제를 모두 풀었습니다!";
-            problemDescription.textContent = `총 ${problems.length}문제 중 ${correctCount}문제를 맞췄습니다.`;
-            answerInput.style.display = "none"; // 답안 입력란 숨기기
-            submitAnswerBtn.textContent = "다시 시작하기";
-        }
+        const correctCount = userAnswers.filter(answer => answer).length;
+
+        problemTitle.textContent = "문제를 모두 풀었습니다!";
+        problemDescription.textContent = `총 ${problems.length}문제 중 ${correctCount}문제를 맞췄습니다.`;
+        answerInput.style.display = "none";
+        submitAnswerBtn.textContent = "다시 시작하기";
+
+        // 현재 로그인한 유저 이름 가져오기
+        const currentUser = localStorage.getItem("currentUser");
+        if (currentUser) {
+            // 기존 점수를 덮어쓰고 새 점수를 저장
+            saveProblemData(currentUser, correctCount);
+    }
+}
+
 
         // 문제 풀이 초기화
         function resetProblemSolving() {
