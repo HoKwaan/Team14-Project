@@ -17,7 +17,6 @@
             min-height: 100vh;
             background-color: #f5f5f5;
         }
-        /* Sidebar */
         .sidebar {
             width: 200px;
             background-color: #333;
@@ -38,61 +37,36 @@
         .sidebar a:hover {
             color: #fff;
         }
-        /* Main Content */
-       .search-box {
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .search-box {
             height: 60px;
             width: 700px;
             background: #fff;
             border-radius: 40px;
             padding: 10px;
             border: 1px solid #ddd;
-       }
-       .search-txt {
+            display: flex;
+            align-items: center;
+        }
+        .search-txt {
             border: none;
             background: none;
             outline: none;
-            float: left;
-            padding: 0px;
             color: black;
             font-size: 16px;
             line-height: 30px;
-            width: 300px
-       }
-       .main-content{
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column; 
-        align-items: center; 
-        width: 700px; 
-       }
-       .search-list {
-        width: 100%;
-        background: #fff;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        margin-top: 10px; 
-        padding: 10px;
+            width: 100%;
         }
-
-        .search-list ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        }
-
-        .search-list li {
-        padding: 8px 0;
-        border-bottom: 1px solid #ddd;
-        }
-
-        .search-list li:last-child {
-        border-bottom: none;
-        }
-       .search-btn{
-            color:#ddd;
-            float: right;
+        .search-btn {
+            color: #ddd;
             width: 40px;
-            height: 100%;
+            height: 40px;
             border-radius: 50%;
             background: white;
             border: none;
@@ -100,122 +74,146 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
         }
-        /* Ranking Panel */
-        .ranking {
-            margin-left: 20px;
-            padding: 10px;
+        .search-list, .answer-container {
+            width: 700px;
+            margin-top: 20px;
             background-color: #fff;
-            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .search-list ul {
+            list-style: none;
+            padding: 0;
+        }
+        .search-list li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+        }
+        .search-list li:hover {
+            background-color: #f0f0f0;
+        }
+        .answer-container {
+            display: none;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
             border-radius: 5px;
         }
-        .ranking h2 {
-            margin-bottom: 10px;
-        }
-        .ranking-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #ddd;
-        }
-        .ranking-item:last-child {
-            border-bottom: none;
+        .back-btn:hover {
+            background: #0056b3;
         }
     </style>
 </head>
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <h2>문제 풀이 앱 Quich</h2>
-<<<<<<< HEAD
+        <h2>문제 풀이 앱</h2>
         <a href="quich.html">문제 출제 및 풀이</a>
         <a href="ranking.html">유저 랭킹</a>
         <a href="login.html">문제 출제</a>
-=======
-        <a href="quich.html">현재 문제</a>
-        <a href="./ranking.html">유저 랭킹</a>
-        <a href="#problem">문제 출제</a>
->>>>>>> 9146d19c30edbceb705cb82d949e1fb18dd47984
         <a href="search.html">문제 검색</a>
-        <a href="./login.html">로그아웃</a>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
-       <form class="search-box" action="" method="get">
+        <!-- 검색창 -->
+        <div class="search-box">
             <input class="search-txt" type="text" id="search-input" placeholder="검색할 문제 번호를 입력하세요.">
-            <button class="search-btn" type="button" id="search-btn">
+            <button class="search-btn" id="search-btn">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
-       </form>
+        </div>
 
-       <div class="search-list">
-        <ul id="problem-list">
-            <!-- 문제 리스트가 여기에 표시됨 -->
-        </ul>
-       </div>
-    </div>
+        <!-- 문제 리스트 모드 -->
+        <div class="search-list" id="problem-list-container">
+            <h2>문제 목록</h2>
+            <ul id="problem-list"></ul>
+        </div>
 
-    <!-- Ranking Panel -->
-    <div class="ranking" id="ranking">
-        <h2>유저 랭킹</h2>
-        <div class="ranking-item">
-            <span>1. 유저A</span>
-            <span>점수: 100</span>
+        <!-- 정답 보기 모드 -->
+        <div class="answer-container" id="answer-container">
+            <h2 id="selected-problem-title"></h2>
+            <p id="selected-problem-description"></p>
+            <p style="color: green;" id="selected-problem-answer"></p>
+            <a href="#" class="back-btn" id="back-btn">뒤로 가기</a>
         </div>
-        <div class="ranking-item">
-            <span>2. 유저B</span>
-            <span>점수: 95</span>
-        </div>
-        <div class="ranking-item">
-            <span>3. 유저C</span>
-            <span>점수: 90</span>
-        </div>
-        <a href="./dashboard.html">처음으로</a>
     </div>
 
     <script>
-        // 로컬스토리지에서 문제 가져오기
+        // 로컬 스토리지에서 문제 가져오기
         function getProblemsFromLocalStorage() {
             const storedProblems = localStorage.getItem("problems");
             return storedProblems ? JSON.parse(storedProblems) : [];
         }
-    
-        // 문제 리스트를 화면에 표시하기 (검색 필터링 포함)
+
+        // 문제 리스트 표시 (검색 필터링 포함)
         function displayProblems(filteredProblems = null) {
+            const problemListContainer = document.getElementById("problem-list-container");
             const problemList = document.getElementById("problem-list");
+            const answerContainer = document.getElementById("answer-container");
+
             problemList.innerHTML = ""; // 기존 리스트 초기화
-    
+            problemListContainer.style.display = "block";
+            answerContainer.style.display = "none";
+
             const problems = filteredProblems || getProblemsFromLocalStorage();
-    
-            // 문제 데이터를 순회하며 리스트에 추가
-            problems.forEach((problem, index) => {
+
+            problems.forEach((problem) => {
                 const listItem = document.createElement("li");
-                const link = document.createElement("a");
-    
-                link.href = `quich.html?problemId=${problem.id}`; // 클릭 시 이동
-                link.textContent = `문제 ${problem.id}: ${problem.description}`;
+                listItem.textContent = `문제 ${problem.id}: ${problem.description}`;
                 
-                listItem.appendChild(link);
+                // 클릭 이벤트: 문제를 클릭하면 정답 보기로 전환
+                listItem.addEventListener("click", () => {
+                    showAnswer(problem);
+                });
+
                 problemList.appendChild(listItem);
             });
         }
-    
+
+        // 정답 보기 화면 표시
+        function showAnswer(problem) {
+            document.getElementById("problem-list-container").style.display = "none";
+            const answerContainer = document.getElementById("answer-container");
+            answerContainer.style.display = "block";
+
+            document.getElementById("selected-problem-title").textContent = `문제 ${problem.id}`;
+            document.getElementById("selected-problem-description").textContent = problem.description;
+            document.getElementById("selected-problem-answer").textContent = `정답: ${problem.answer}`;
+        }
+
+        // 뒤로 가기 버튼 클릭 이벤트
+        document.getElementById("back-btn").addEventListener("click", (event) => {
+            event.preventDefault();
+            displayProblems(currentFilteredProblems); // 검색 결과 유지
+        });
+
         // 검색 기능
+        let currentFilteredProblems = null; // 현재 필터링된 문제 저장
         document.getElementById("search-btn").addEventListener("click", () => {
             const searchInput = document.getElementById("search-input").value.trim();
             const problems = getProblemsFromLocalStorage();
-    
+
             if (searchInput === "") {
+                currentFilteredProblems = null;
                 displayProblems(); // 검색어가 없으면 전체 문제 표시
             } else {
-                const filteredProblems = problems.filter(problem => 
+                currentFilteredProblems = problems.filter(problem => 
                     problem.id.toString() === searchInput // 문제 ID와 입력값이 일치하는 경우
                 );
-                displayProblems(filteredProblems); // 검색된 문제만 표시
+                displayProblems(currentFilteredProblems); // 검색된 문제만 표시
             }
         });
-    
+
         // 페이지 로드 시 전체 문제 표시
         window.onload = function () {
             displayProblems();
