@@ -28,6 +28,37 @@
             text-align: center;
             margin-bottom: 20px;
         }
+        /* Sidebar */
+        .sidebar {
+            width: 200px;
+            height: 100vh;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar h2 {
+            margin-bottom: 20px;
+        }
+        .sidebar a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 10px 0;
+            display: block;
+        }
+        .sidebar a:hover {
+            color: #fff;
+        }
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
 
         table {
             width: 100%;
@@ -48,6 +79,15 @@
 </head>
 
 <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>문제 풀이 앱 Quich</h2>
+        <a href="quich.html">문제 풀이</a>
+        <a href="search.html">문제 검색</a>
+        <a href="#problem">문제 출제</a>
+        <a href="./login.html">로그아웃</a>
+    </div>
+   <div class="main-content">
     <div class="ranking-container">
         <h1>User Rankings</h1>
         <table>
@@ -62,8 +102,9 @@
                 <!-- 사용자 순위가 여기에 추가됨 -->
             </tbody>
         </table>
-        <a href="./dashboard.html">처음으로</a>
+        <a href="./dashboard.html">처음으로</a>        
     </div>
+</div>
     <script src="ranking.js"></script>
 </body>
 

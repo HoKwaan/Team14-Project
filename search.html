@@ -127,30 +127,33 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <h2>문제 풀이 앱 Quich</h2>
+<<<<<<< HEAD
+        <a href="quich.html">문제 출제 및 풀이</a>
+        <a href="ranking.html">유저 랭킹</a>
+        <a href="login.html">문제 출제</a>
+=======
         <a href="quich.html">현재 문제</a>
         <a href="./ranking.html">유저 랭킹</a>
         <a href="#problem">문제 출제</a>
+>>>>>>> 9146d19c30edbceb705cb82d949e1fb18dd47984
         <a href="search.html">문제 검색</a>
+        <a href="./login.html">로그아웃</a>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
        <form class="search-box" action="" method="get">
-            <input class="search-txt" type="text" name="" placeholder="검색할 문제 번호를 입력하세요.">
-            <button class="search-btn" type="submit">
+            <input class="search-txt" type="text" id="search-input" placeholder="검색할 문제 번호를 입력하세요.">
+            <button class="search-btn" type="button" id="search-btn">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
        </form>
 
        <div class="search-list">
-        <ul>
-            <a href="quich.html"><li>문제 1: 배열의 합 구하기</li></a>
-            <li>문제 2: 문자열 뒤집기</li>
-            <li>문제 3: 소수 판별하기</li>
-            <li>문제 4: 피보나치 수열 출력</li>
-            <li>문제 5: 최대공약수와 최소공배수 구하기</li>
+        <ul id="problem-list">
+            <!-- 문제 리스트가 여기에 표시됨 -->
         </ul>
-    </div>
+       </div>
     </div>
 
     <!-- Ranking Panel -->
@@ -168,15 +171,55 @@
             <span>3. 유저C</span>
             <span>점수: 90</span>
         </div>
-        <div class="ranking-item">
-            <span>4. 유저D</span>
-            <span>점수: 85</span>
-        </div>
-        <div class="ranking-item">
-            <span>5. 유저E</span>
-            <span>점수: 80</span>
-        </div>
         <a href="./dashboard.html">처음으로</a>
     </div>
+
+    <script>
+        // 로컬스토리지에서 문제 가져오기
+        function getProblemsFromLocalStorage() {
+            const storedProblems = localStorage.getItem("problems");
+            return storedProblems ? JSON.parse(storedProblems) : [];
+        }
+    
+        // 문제 리스트를 화면에 표시하기 (검색 필터링 포함)
+        function displayProblems(filteredProblems = null) {
+            const problemList = document.getElementById("problem-list");
+            problemList.innerHTML = ""; // 기존 리스트 초기화
+    
+            const problems = filteredProblems || getProblemsFromLocalStorage();
+    
+            // 문제 데이터를 순회하며 리스트에 추가
+            problems.forEach((problem, index) => {
+                const listItem = document.createElement("li");
+                const link = document.createElement("a");
+    
+                link.href = `quich.html?problemId=${problem.id}`; // 클릭 시 이동
+                link.textContent = `문제 ${problem.id}: ${problem.description}`;
+                
+                listItem.appendChild(link);
+                problemList.appendChild(listItem);
+            });
+        }
+    
+        // 검색 기능
+        document.getElementById("search-btn").addEventListener("click", () => {
+            const searchInput = document.getElementById("search-input").value.trim();
+            const problems = getProblemsFromLocalStorage();
+    
+            if (searchInput === "") {
+                displayProblems(); // 검색어가 없으면 전체 문제 표시
+            } else {
+                const filteredProblems = problems.filter(problem => 
+                    problem.id.toString() === searchInput // 문제 ID와 입력값이 일치하는 경우
+                );
+                displayProblems(filteredProblems); // 검색된 문제만 표시
+            }
+        });
+    
+        // 페이지 로드 시 전체 문제 표시
+        window.onload = function () {
+            displayProblems();
+        };
+    </script>
 </body>
 </html>
