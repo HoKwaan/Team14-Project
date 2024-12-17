@@ -4,84 +4,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Ranking</title>
+    <title>유저 랭킹</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        display: flex;
+        flex-direction: row; /* Sidebar와 Main Content를 나란히 배치 */
+        height: 100vh;
+        overflow: hidden;
+    }
 
-        .ranking-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 400px;
-        }
-
-        .ranking-container h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        /* Sidebar */
-        .sidebar {
+    /* Sidebar */
+    .sidebar {
             width: 200px;
-            height: 100vh;
             background-color: #333;
             color: #fff;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
+            box-sizing: border-box;
         }
-        
-        .sidebar h2 {
+
+    .sidebar h2 {
             margin-bottom: 20px;
         }
-        .sidebar a {
+
+    .sidebar a {
+            display: block;
             color: #ccc;
             text-decoration: none;
             margin: 10px 0;
-            display: block;
-        }
-        .sidebar a:hover {
-            color: #fff;
-        }
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            padding: 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
+    .sidebar a:hover {
+            color: white;
         }
 
-        table th, table td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
+    /* Main Content */
+    .main-content {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f5f5f5;
+        padding: 20px;
+        box-sizing: border-box; /* Padding 포함 크기 */
+    }
 
-        table th {
-            background-color: #007bff;
-            color: #fff;
-        }
-    </style>
+    .ranking-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .ranking-container h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    table th,
+    table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+        background-color: #007bff;
+        color: #fff;
+        text-align: center;
+    }
+
+    table td {
+        text-align: center;
+    }
+</style>
 </head>
 
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <h2>문제 풀이 앱 Quich</h2>
+        <h2>문제 풀이 앱</h2>
         <a href="quich.html">문제 출제 및 풀이</a>
         <a href="ranking.html">유저 랭킹</a>
         <a href="search.html">문제 검색</a>
@@ -89,13 +102,13 @@
     </div>
    <div class="main-content">
     <div class="ranking-container">
-        <h1>User Rankings</h1>
+        <h1>유저 랭킹</h1>
         <table>
             <thead>
                 <tr>
-                    <th>Rank</th>
-                    <th>Username</th>
-                    <th>Score</th>
+                    <th>순위</th>
+                    <th>이름</th>
+                    <th>점수</th>
                 </tr>
             </thead>
             <tbody id="ranking-table">
