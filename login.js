@@ -10,7 +10,7 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
     if (storedPassword === password) {
         alert("Login successful!");
         localStorage.setItem("currentUser", username); // 현재 로그인한 유저
-        window.location.href = "dashboard.html"; // 로그인 성공 시 대시보드로 이동
+        window.location.href = "search.html"; // 로그인 성공 시 대시보드로 이동
     } else {
         alert("Invalid username or password.");
     }

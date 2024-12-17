@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h3 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            color: #007bff;
+        }
+
+        form {
+            text-align: center;
+            /* 폼 내 모든 요소 중앙 정렬 */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            /* 너비를 100%로 확장 */
+            max-width: 250px;
+            /* 입력창 최대 너비 설정 */
+            margin: 0 auto 15px;
+            /* 수평 중앙 배치 및 아래 여백 추가 */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .danger-button {
+            background-color: #dc3545;
+        }
+
+        .danger-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>설정</h2>
+
+        <!-- 기본 정보 관리 -->
+        <div class="section">
+            <h3>기본 정보 관리</h3>
+            <label for="email">이메일 변경</label>
+            <input type="email" id="email" placeholder="새 이메일 입력">
+
+            <label for="nickname">닉네임 변경</label>
+            <input type="text" id="nickname" placeholder="새 닉네임 입력">
+
+            <button style="display: block; margin-top: 10px;" onclick="saveInfo()">저장</button>
+        </div>
+
+        <!-- 비밀번호 변경 -->
+        <div class="section">
+            <h3>비밀번호 관리</h3>
+            <button onclick="window.location.href='change-password.html'">비밀번호 변경</button>
+        </div>
+
+        <!-- 계정 보호 질문 변경 -->
+        <div class="section">
+            <h3>보안 관련</h3>
+            <label for="security-question">보호 질문 변경</label>
+            <input type="text" id="security-question" placeholder="새 보호 질문 입력">
+
+            <label for="security-answer">답변</label>
+            <input type="text" id="security-answer" placeholder="답변 입력">
+
+            <button style="display: block; margin-top: 10px;" onclick="saveSecurityQuestion()">저장</button>
+        </div>
+
+        <!-- 회원 탈퇴 -->
+        <div class="section">
+            <h3>회원 탈퇴</h3>
+            <button class="danger-button" onclick="deleteAccount()">회원 탈퇴</button>
+        </div>
+
+        <button onclick="window.location.href='search.html'">뒤로 가기</button>
+    </div>
+
+    <script>
+        const currentUser = localStorage.getItem("currentUser");
+
+        // 정보 저장 기능
+        function saveInfo() {
+            const email = document.getElementById('email').value;
+            const nickname = document.getElementById('nickname').value;
+
+            if (email) {
+                localStorage.setItem(currentUser + "_email", email);
+            }
+
+            if (nickname) {
+                localStorage.setItem(currentUser + "_nickname", nickname);
+            }
+
+            alert("정보가 저장되었습니다!");
+        }
+
+        // 계정 보호 질문 변경 기능
+        function saveSecurityQuestion() {
+            const question = document.getElementById('security-question').value;
+            const answer = document.getElementById('security-answer').value;
+
+            if (question && answer) {
+                localStorage.setItem(currentUser + "_question", question);
+                localStorage.setItem(currentUser + "_answer", answer);
+                alert("계정 보호 질문이 저장되었습니다!");
+            } else {
+                alert("모든 항목을 입력해주세요.");
+            }
+        }
+
+        // 회원 탈퇴 기능
+        function deleteAccount() {
+            if (confirm("정말로 계정을 삭제하시겠습니까?")) {
+                localStorage.removeItem(currentUser);
+                localStorage.removeItem(currentUser + "_email");
+                localStorage.removeItem(currentUser + "_nickname");
+                localStorage.removeItem(currentUser + "_question");
+                localStorage.removeItem(currentUser + "_answer");
+
+                alert("계정이 삭제되었습니다.");
+                window.location.href = "login.html";
+            }
+        }
+    </script>
+</body>
+
+</html>

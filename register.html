@@ -13,76 +13,108 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #ffffff;
+            background-color: #f9f9f9;
         }
 
-        .register-container {
+        .container {
             width: 320px;
-            padding: 25px 20px;
+            padding: 20px;
+            background: #fff;
             border: 1px solid #ddd;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
         }
 
-        .register-container h1 {
+        h1 {
             text-align: center;
-            margin-bottom: 25px;
-            font-size: 24px;
-            color: #333;
         }
 
-        .register-container label {
+        label {
             display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: #555;
+            margin: 10px 0 5px;
         }
 
-        .register-container input {
+        input {
             width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 20px;
+            padding: 8px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 14px;
         }
 
-        .register-container button {
+        button {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
+            margin-top: 15px;
             background-color: #28a745;
+            color: white;
             border: none;
             border-radius: 5px;
-            color: #fff;
-            font-size: 16px;
-            font-weight: bold;
             cursor: pointer;
         }
 
-        .register-container button:hover {
+        button:hover {
             background-color: #218838;
         }
     </style>
 </head>
 
 <body>
-    <div class="register-container">
-        <h1>Sign Up</h1>
+    <div class="container">
+        <h1>회원가입</h1>
         <form id="register-form">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" required>
+            <input type="text" id="username" required>
 
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+            <label for="email">이메일</label>
+            <input type="email" id="email" required>
 
-            <label for="confirm-password">Confirm Password</label>
-            <input type="password" id="confirm-password" name="confirm-password" required>
+            <label for="nickname">닉네임</label>
+            <input type="text" id="nickname" required>
 
-            <button type="submit">Sign Up</button>
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" required>
+
+            <label for="confirm-password">비밀번호 확인</label>
+            <input type="password" id="confirm-password" required>
+
+            <label for="security-answer">보호 질문: 좋아하는 색은?</label>
+            <input type="text" id="security-answer" required>
+
+            <button type="submit">회원가입</button>
         </form>
     </div>
-    <script src="register.js"></script> <!-- External JS -->
+
+    <script>
+        document.getElementById('register-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const nickname = document.getElementById('nickname').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const securityAnswer = document.getElementById('security-answer').value;
+
+            if (password !== confirmPassword) {
+                alert("비밀번호가 일치하지 않습니다.");
+                return;
+            }
+
+            // 필수 항목 확인
+            if (!email || !nickname) {
+                alert("이메일과 닉네임은 필수 입력 항목입니다.");
+                return;
+            }
+
+            localStorage.setItem(username, password);
+            localStorage.setItem(username + "_email", email);
+            localStorage.setItem(username + "_nickname", nickname);
+            localStorage.setItem(username + "_answer", securityAnswer);
+
+            alert("회원가입이 완료되었습니다!");
+            window.location.href = "login.html";
+        });
+    </script>
 </body>
 
 </html>

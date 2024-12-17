@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <script src="https://kit.fontawesome.com/cf112bfab0.js" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
@@ -12,11 +13,13 @@
             padding: 0;
             font-family: Arial, sans-serif;
         }
+
         body {
             display: flex;
             min-height: 100vh;
             background-color: #f5f5f5;
         }
+
         .sidebar {
             width: 200px;
             background-color: #333;
@@ -25,18 +28,22 @@
             display: flex;
             flex-direction: column;
         }
+
         .sidebar h2 {
             margin-bottom: 20px;
         }
+
         .sidebar a {
             color: #ccc;
             text-decoration: none;
             margin: 10px 0;
             display: block;
         }
+
         .sidebar a:hover {
             color: #fff;
         }
+
         .main-content {
             flex: 1;
             padding: 20px;
@@ -44,6 +51,7 @@
             flex-direction: column;
             align-items: center;
         }
+
         .search-box {
             height: 60px;
             width: 700px;
@@ -54,6 +62,7 @@
             display: flex;
             align-items: center;
         }
+
         .search-txt {
             border: none;
             background: none;
@@ -63,6 +72,7 @@
             line-height: 30px;
             width: 100%;
         }
+
         .search-btn {
             color: #ddd;
             width: 40px;
@@ -76,7 +86,9 @@
             align-items: center;
             cursor: pointer;
         }
-        .search-list, .answer-container {
+
+        .search-list,
+        .answer-container {
             width: 700px;
             margin-top: 20px;
             background-color: #fff;
@@ -84,21 +96,26 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .search-list ul {
             list-style: none;
             padding: 0;
         }
+
         .search-list li {
             padding: 10px;
             border-bottom: 1px solid #ddd;
             cursor: pointer;
         }
+
         .search-list li:hover {
             background-color: #f0f0f0;
         }
+
         .answer-container {
             display: none;
         }
+
         .back-btn {
             display: inline-block;
             margin-top: 20px;
@@ -108,11 +125,13 @@
             text-decoration: none;
             border-radius: 5px;
         }
+
         .back-btn:hover {
             background: #0056b3;
         }
     </style>
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -120,6 +139,7 @@
         <a href="quich.html">문제 출제 및 풀이</a>
         <a href="ranking.html">유저 랭킹</a>
         <a href="search.html">문제 검색</a>
+        <a href="info.html">설정</a>
         <a href="login.html">로그아웃</a>
     </div>
 
@@ -170,7 +190,7 @@
             problems.forEach((problem) => {
                 const listItem = document.createElement("li");
                 listItem.textContent = `문제 ${problem.id}: ${problem.description}`;
-                
+
                 // 클릭 이벤트: 문제를 클릭하면 정답 보기로 전환
                 listItem.addEventListener("click", () => {
                     showAnswer(problem);
@@ -207,7 +227,7 @@
                 currentFilteredProblems = null;
                 displayProblems(); // 검색어가 없으면 전체 문제 표시
             } else {
-                currentFilteredProblems = problems.filter(problem => 
+                currentFilteredProblems = problems.filter(problem =>
                     problem.id.toString() === searchInput // 문제 ID와 입력값이 일치하는 경우
                 );
                 displayProblems(currentFilteredProblems); // 검색된 문제만 표시
@@ -220,4 +240,5 @@
         };
     </script>
 </body>
+
 </html>
