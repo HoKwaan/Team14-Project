@@ -1,15 +1,17 @@
-// 문제 풀이 데이터를 가져오기
+// ranking.js
+
+// 문제 풀이 데이터를 로컬스토리지에서 가져오기
 function getProblemsData() {
     const problemsData = localStorage.getItem("problemsData");
     return problemsData ? JSON.parse(problemsData) : [];
 }
 
-// 닉네임 가져오기
+// 닉네임 가져오기 함수
 function getNickname(username) {
     return localStorage.getItem(username + "_nickname") || username; // 닉네임이 없으면 username 사용
 }
 
-// 유저 점수 데이터 계산하기
+// 유저 점수 데이터 계산 함수
 function calculateUserRankings() {
     const problemsData = getProblemsData();
     const userScores = {};
@@ -50,13 +52,18 @@ function calculateUserRankings() {
     return rankingArray;
 }
 
-// 랭킹 테이블 표시하기
+// 랭킹 테이블 표시 함수
 function displayRanking() {
     const rankingTable = document.getElementById("ranking-table");
     const rankings = calculateUserRankings();
 
     // 테이블 초기화
     rankingTable.innerHTML = "";
+
+    if (rankings.length === 0) {
+        rankingTable.innerHTML = "<tr><td colspan='3'>랭킹 정보가 없습니다.</td></tr>";
+        return;
+    }
 
     rankings.forEach(user => {
         const row = document.createElement("tr");

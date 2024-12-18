@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Quich</title>
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #ffffff;
+            background-color: #686565;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -52,7 +52,7 @@
             width: 100%;
             padding: 12px;
             margin-bottom: 10px;
-            background-color: #007bff;
+            background-color: #686565;
             border: none;
             border-radius: 5px;
             color: #fff;
@@ -62,7 +62,7 @@
         }
 
         .login-container button:hover {
-            background-color: #0056b3;
+            background-color: #353131;
         }
 
         .register-link {
@@ -71,7 +71,7 @@
 
         .register-link a {
             text-decoration: none;
-            color: #007bff;
+            color: #686565;
             font-size: 14px;
         }
 
@@ -83,22 +83,40 @@
 
 <body>
     <div class="login-container">
-        <h1>Login</h1>
+        <h1>Quich!</h1>
         <form id="login-form">
-            <label for="username">Username</label>
+            <label for="username">아이디</label>
             <input type="text" id="username" name="username" required>
 
-            <label for="password">Password</label>
+            <label for="password">비밀번호</label>
             <input type="password" id="password" name="password" required>
 
-            <button type="submit">Log In</button>
+            <button type="submit">로그인</button>
         </form>
         <div class="register-link">
-            <p><a href="register.html">Sign up</a></p>
-            <p><a href="reset-password.html">forgot password</a></p>
+            <p><a href="register.html">회원가입</a></p>
+            <p><a href="reset-password.html">비밀번호 찾기</a></p>
         </div>
     </div>
-    <script src="login.js"></script> <!-- External JS -->
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function (e) {
+            e.preventDefault(); // 폼 제출 중단
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            // localStorage에서 사용자 정보 확인
+            const storedPassword = localStorage.getItem(username);
+
+            if (storedPassword === password) {
+                alert("로그인 성공!");
+                localStorage.setItem("currentUser", username); // 현재 로그인한 유저
+                window.location.href = "dashboard.html"; // 로그인 성공 시 대시보드로 이동
+            } else {
+                alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+            }
+        });
+    </script>
 </body>
 
 </html>
