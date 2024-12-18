@@ -4,7 +4,12 @@ function getProblemsData() {
     return problemsData ? JSON.parse(problemsData) : [];
 }
 
-// 유저 점수 데이터 가져오기
+// 닉네임 가져오기
+function getNickname(username) {
+    return localStorage.getItem(username + "_nickname") || username; // 닉네임이 없으면 username 사용
+}
+
+// 유저 점수 데이터 계산하기
 function calculateUserRankings() {
     const problemsData = getProblemsData();
     const userScores = {};
@@ -23,8 +28,10 @@ function calculateUserRankings() {
     // 점수를 배열로 변환 후 정렬
     const rankingArray = Object.keys(userScores).map(username => ({
         username,
+        nickname: getNickname(username), // 닉네임 추가
         score: userScores[username]
     }));
+
     rankingArray.sort((a, b) => b.score - a.score); // 점수 내림차순 정렬
 
     // 순위 계산
@@ -43,7 +50,7 @@ function calculateUserRankings() {
     return rankingArray;
 }
 
-// 랭킹 테이블 표시
+// 랭킹 테이블 표시하기
 function displayRanking() {
     const rankingTable = document.getElementById("ranking-table");
     const rankings = calculateUserRankings();
@@ -57,19 +64,21 @@ function displayRanking() {
         const rankCell = document.createElement("td");
         rankCell.textContent = user.rank; // 동점자 처리된 순위 표시
 
-        const usernameCell = document.createElement("td");
-        usernameCell.textContent = user.username;
+        const nicknameCell = document.createElement("td");
+        nicknameCell.textContent = user.nickname; // 닉네임 표시
 
         const scoreCell = document.createElement("td");
         scoreCell.textContent = user.score;
 
         row.appendChild(rankCell);
-        row.appendChild(usernameCell);
+        row.appendChild(nicknameCell);
         row.appendChild(scoreCell);
 
         rankingTable.appendChild(row);
     });
 }
 
-// 초기 실행
-displayRanking();
+// 페이지 로드 시 랭킹 표시
+window.onload = function () {
+    displayRanking();
+};

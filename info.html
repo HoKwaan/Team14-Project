@@ -35,7 +35,7 @@
             border-bottom: 1px solid #ddd;
             padding-bottom: 10px;
             margin-bottom: 15px;
-            color: #007bff;
+            color: #3b3a3a;
         }
 
         form {
@@ -64,7 +64,7 @@
 
 
         button {
-            background-color: #007bff;
+            background-color: #444647;
             color: white;
             padding: 10px 15px;
             border: none;
@@ -74,15 +74,15 @@
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #478dd8;
         }
 
         .danger-button {
-            background-color: #dc3545;
+            background-color: #444647;
         }
 
         .danger-button:hover {
-            background-color: #c82333;
+            background-color: #e35765;
         }
     </style>
 </head>
@@ -96,6 +96,8 @@
             <h3>기본 정보 관리</h3>
             <label for="email">이메일 변경</label>
             <input type="email" id="email" placeholder="새 이메일 입력">
+
+            <button style="display: block; margin-top: 10px; margin-bottom: 20px;" onclick="saveInfo()">저장</button>
 
             <label for="nickname">닉네임 변경</label>
             <input type="text" id="nickname" placeholder="새 닉네임 입력">
